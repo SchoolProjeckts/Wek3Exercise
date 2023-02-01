@@ -73,7 +73,7 @@ public class BookController {
      * @param book the new book.
      */
     @PostMapping("/books")
-    public ResponseEntity createBook(@RequestBody Book book) {
+    public ResponseEntity<Object> createBook(@RequestBody Book book) {
         this.books.add(book);
         Boolean bookWasCreatedAndAddedToTheBookList = false;
 
@@ -84,10 +84,10 @@ public class BookController {
 
         //Return a created respond if the book was created and added to the book list.
         if(bookWasCreatedAndAddedToTheBookList) {
-            return new ResponseEntity(HttpStatus.CREATED);
+            return new ResponseEntity(book,HttpStatus.CREATED);
         }
 
         //If the book was no created a bad request respond is return.
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("Title cant be null",HttpStatus.BAD_REQUEST);
     }
 }
